@@ -10,6 +10,7 @@ File type code:
 5 --> video
 6 --> apps
 7 --> torrent
+8 --> shortcuts
 */
 
 bool belongsToDoc(string docarr[], string ext, int docarrsize)
@@ -102,6 +103,21 @@ bool belongsToVideo(string arr[], string ext, int arrsize)
     return false;
 }
 
+bool belongsToShortcut(string arr[], string ext, int arrsize)
+{
+    int i = 0;
+    while (i < arrsize)
+    {
+        if (arr[i] == ext)
+        {
+            return true;
+        }
+        i++;
+    }
+
+    return false;
+}
+
 // Return the group of file
 int filegroup(string extension)
 {
@@ -111,6 +127,7 @@ int filegroup(string extension)
     string videoExt[7] = {"mp4", "ogg", "flm"};
     string torrentExt[1] = {"torrent"};
     string appExt[7] = {"exe", "bat", "bash", "sh", "msi"};
+    string shortcutExt[1] = {"lnk"};
 
     if (belongsToDoc(docExt, extension, 7))
     {
@@ -135,6 +152,10 @@ int filegroup(string extension)
     else if (belongsToTorrent(torrentExt, extension, 1))
     {
         return 7;
+    }
+    else if (belongsToShortcut(shortcutExt, extension, 1))
+    {
+        return 8;
     }
     return 0;
 }
