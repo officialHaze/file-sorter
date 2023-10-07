@@ -11,6 +11,8 @@ File type code:
 6 --> apps
 7 --> torrent
 8 --> shortcuts
+9 --> archives
+10 --> json
 */
 
 bool belongsToDoc(string docarr[], string ext, int docarrsize)
@@ -118,7 +120,37 @@ bool belongsToShortcut(string arr[], string ext, int arrsize)
     return false;
 }
 
-// Return the group of file
+bool belongsToArchive(string arr[], string ext, int arrsize)
+{
+    int i = 0;
+    while (i < arrsize)
+    {
+        if (arr[i] == ext)
+        {
+            return true;
+        }
+        i++;
+    }
+
+    return false;
+}
+
+bool belongsToJson(string arr[], string ext, int arrsize)
+{
+    int i = 0;
+    while (i < arrsize)
+    {
+        if (arr[i] == ext)
+        {
+            return true;
+        }
+        i++;
+    }
+
+    return false;
+}
+
+// Return the group code to which the file belongs
 int filegroup(string extension)
 {
     string docExt[7] = {"pdf", "doc", "txt", "xls", "ppt", "docx", "xlsx"};
@@ -128,6 +160,8 @@ int filegroup(string extension)
     string torrentExt[1] = {"torrent"};
     string appExt[7] = {"exe", "bat", "bash", "sh", "msi"};
     string shortcutExt[1] = {"lnk"};
+    string archiveExt[7] = {"zip", "tar", "zst", "rar"};
+    string jsonExt[1] = {"json"};
 
     if (belongsToDoc(docExt, extension, 7))
     {
@@ -157,6 +191,14 @@ int filegroup(string extension)
     {
         return 8;
     }
+    else if (belongsToArchive(archiveExt, extension, 7))
+    {
+        return 9;
+    }
+    else if (belongsToJson(jsonExt, extension, 1))
+    {
+        return 10;
+    }
     return 0;
 }
 
@@ -164,7 +206,7 @@ int filetype(string filename)
 {
     int filetype = 0;
     int size = filename.size();
-    string splits[size];
+    string splits[100];
 
     int splits_arr_length = split(filename, '.', splits);
 

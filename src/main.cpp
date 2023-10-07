@@ -13,7 +13,7 @@ int main()
     string dirpath;
 
     cout << "Enter the full path of the directory you want to organize: " << endl;
-    cin >> dirpath;
+    getline(cin, dirpath);
 
     dirpath = dirpath + "\\"; // Append "\\" after the full dirpath name
 
@@ -54,13 +54,14 @@ int main()
 
         } while (FindNextFileA(dir, &fileData));
 
-        // Close the dir
-        FindClose(dir);
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }
+
+    // Close the dir
+    FindClose(dir);
 
     return 0;
 }

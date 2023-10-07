@@ -10,6 +10,9 @@ File type code:
 5 --> video
 6 --> apps
 7 --> torrent
+8 --> shortcuts
+9 --> archives
+10 --> json
 */
 
 void movefile(string oldpath, string newpath)
@@ -124,12 +127,38 @@ void sortfile(int filetype, string filename, string parentDirPath)
         movefile(oldname, newname);
         break;
 
+    case 9:
+        // Documents
+        foldername = "Archives";
+        // Create a directory
+        CreateDirectoryA((parentDirPath + foldername).c_str(), NULL);
+
+        oldname = parentDirPath + filename;
+        newname = parentDirPath + foldername + "\\" + filename;
+
+        // Move the file
+        movefile(oldname, newname);
+        break;
+
+    case 10:
+        // Documents
+        foldername = "Json";
+        // Create a directory
+        CreateDirectoryA((parentDirPath + foldername).c_str(), NULL);
+
+        oldname = parentDirPath + filename;
+        newname = parentDirPath + foldername + "\\" + filename;
+
+        // Move the file
+        movefile(oldname, newname);
+        break;
+
     default:
         break;
     }
 
     // Print a success message
-    cout << "File sorted successfully" << endl
+    cout << "File sorted successfully" << endl << "New path: " << newname << endl
          << endl;
 
     return;
