@@ -111,6 +111,19 @@ void sortfile(int filetype, string filename, string parentDirPath)
         movefile(oldname, newname);
         break;
 
+    case 8:
+        // Documents
+        foldername = "Shortcuts";
+        // Create a directory
+        CreateDirectoryA((parentDirPath + foldername).c_str(), NULL);
+
+        oldname = parentDirPath + filename;
+        newname = parentDirPath + foldername + "\\" + filename;
+
+        // Move the file
+        movefile(oldname, newname);
+        break;
+
     default:
         break;
     }
